@@ -18,7 +18,7 @@ public class UserEntity {
 
     @Id
     private String id;
-    private String username;
+    private String name;
     private String document;
     private String documentType;
 
