@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.ms.user.dto.UserDto;
 import com.ms.user.model.UserEntity;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +32,7 @@ public interface UserDoc {
             )
         }
     )
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity);
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserDto userDto);
 
     @Operation(summary="Get user by id", description="This operation is for retrieving a user by its id")
     @ApiResponses(

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.user.controller.docs.UserDoc;
+import com.ms.user.dto.UserDto;
 import com.ms.user.model.UserEntity;
 import com.ms.user.service.UserService;
 
@@ -25,8 +26,8 @@ public class UserController implements UserDoc {
 
     @Override
     @PostMapping
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
-        return userService.create(userEntity);
+    public ResponseEntity<UserEntity> createUser(@RequestBody UserDto userDto) {
+        return userService.create(userDto);
     }
 
     @Override
