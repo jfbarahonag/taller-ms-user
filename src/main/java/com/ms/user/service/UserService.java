@@ -8,4 +8,5 @@ public interface UserService {
 
     ResponseEntity<UserEntity> create(UserEntity userEntity);
     ResponseEntity<UserEntity> getById(String id);
+    ResponseEntity<UserEntity> deleteById(String id);
 }

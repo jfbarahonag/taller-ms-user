@@ -59,5 +59,32 @@ public interface UserDoc {
         }
     )
     public ResponseEntity<UserEntity> getUser(@PathVariable String id);
+    
+    @Operation(summary="Delete user by id", description="This operation is for removing a user by its id")
+    @ApiResponses(
+        value={
+            @ApiResponse(
+                responseCode="200",
+                description="User deleted",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="404",
+                description="User not found",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="400",
+                description="Bad request",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="500",
+                description="Internal Server Error",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            )
+        }
+    )
+    public ResponseEntity<UserEntity> deleteUser(@PathVariable String id);
 
 }

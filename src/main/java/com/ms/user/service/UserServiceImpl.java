@@ -47,5 +47,24 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
     }
+    
+    @Override
+    public ResponseEntity<UserEntity> deleteById(String id) {
+        try {
+            Optional<UserEntity> user = userRepository.findById(id);
+
+            if (user.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            userRepository.delete(user.get());
+
+            return ResponseEntity.ok(user.get());
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+        }
+    }
 
 }
