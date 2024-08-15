@@ -113,6 +113,6 @@ public interface UserDoc {
             )
         }
     )
-    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, UserEntity newUser);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, UserDto newUser);
 
 }

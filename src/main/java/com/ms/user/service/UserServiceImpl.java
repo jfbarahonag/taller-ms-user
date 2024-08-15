@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public ResponseEntity<UserEntity> updateById(String id, UserEntity newUser) {
+    public ResponseEntity<UserEntity> updateById(String id, UserDto userDto) {
         try {
             Optional<UserEntity> user = userRepository.findById(id);
 
@@ -87,13 +87,17 @@ public class UserServiceImpl implements UserService {
                 return ResponseEntity.notFound().build();
             }
             
-            if (user.get().getId().equals(newUser.getId()) == false) {
-                return ResponseEntity.badRequest().build();
-            }
+            UserEntity userEntity = UserEntity
+                    .builder()
+                    .id(id)
+                    .name(userDto.getName())
+                    .document(userDto.getDocument())
+                    .documentType(userDto.getDocumentType())
+                    .build();
 
-            userRepository.save(newUser);
+            userRepository.save(userEntity);
 
-            return ResponseEntity.ok(newUser);
+            return ResponseEntity.ok(userEntity);
         } catch (RuntimeException e) {
             return ResponseEntity
                     .badRequest()

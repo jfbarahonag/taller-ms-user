@@ -10,5 +10,5 @@ public interface UserService {
     ResponseEntity<UserEntity> create(UserDto userDto);
     ResponseEntity<UserEntity> getById(String id);
     ResponseEntity<UserEntity> deleteById(String id);
-    ResponseEntity<UserEntity> updateById(String id, UserEntity newUser);
+    ResponseEntity<UserEntity> updateById(String id, UserDto userDto);
 }

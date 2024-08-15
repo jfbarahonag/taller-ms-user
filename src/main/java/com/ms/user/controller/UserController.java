@@ -44,7 +44,7 @@ public class UserController implements UserDoc {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, @RequestBody UserEntity newUser) {
-        return userService.updateById(id, newUser);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, @RequestBody UserDto userUpdated) {
+        return userService.updateById(id, userUpdated);
     }
 }
