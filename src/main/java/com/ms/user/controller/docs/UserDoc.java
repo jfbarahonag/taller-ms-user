@@ -2,6 +2,7 @@ package com.ms.user.controller.docs;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ms.user.model.UserEntity;
 
@@ -31,5 +32,32 @@ public interface UserDoc {
         }
     )
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity);
+
+    @Operation(summary="Get user by id", description="This operation is for retrieving a user by its id")
+    @ApiResponses(
+        value={
+            @ApiResponse(
+                responseCode="200",
+                description="User found",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="404",
+                description="User not found",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="400",
+                description="Bad request",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="500",
+                description="Internal Server Error",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            )
+        }
+    )
+    public ResponseEntity<UserEntity> getUser(@PathVariable String id);
 
 }

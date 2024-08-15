@@ -1,6 +1,7 @@
 package com.ms.user.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +24,11 @@ public class UserController implements UserDoc {
     @PostMapping
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
         return userService.create(userEntity);
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<UserEntity> getUser(String id) {
+        return userService.getById(id);
     }
 }

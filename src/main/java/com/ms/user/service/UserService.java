@@ -7,4 +7,5 @@ import com.ms.user.model.UserEntity;
 public interface UserService {
 
     ResponseEntity<UserEntity> create(UserEntity userEntity);
+    ResponseEntity<UserEntity> getById(String id);
 }
