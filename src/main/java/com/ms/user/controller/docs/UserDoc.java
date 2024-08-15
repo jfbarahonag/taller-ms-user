@@ -86,5 +86,32 @@ public interface UserDoc {
         }
     )
     public ResponseEntity<UserEntity> deleteUser(@PathVariable String id);
+    
+    @Operation(summary="Update user by id", description="This operation is for updating a user by its id")
+    @ApiResponses(
+        value={
+            @ApiResponse(
+                responseCode="200",
+                description="User updated",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="404",
+                description="User not found",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="400",
+                description="Bad request",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                responseCode="500",
+                description="Internal Server Error",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            )
+        }
+    )
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, UserEntity newUser);
 
 }

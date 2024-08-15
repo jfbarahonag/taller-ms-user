@@ -66,5 +66,28 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
     }
+    
+    @Override
+    public ResponseEntity<UserEntity> updateById(String id, UserEntity newUser) {
+        try {
+            Optional<UserEntity> user = userRepository.findById(id);
+
+            if (user.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            
+            if (user.get().getId().equals(newUser.getId()) == false) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            userRepository.save(newUser);
+
+            return ResponseEntity.ok(newUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+        }
+    }
 
 }
