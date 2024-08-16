@@ -18,3 +18,12 @@ springdoc:
     api-docs:
         path: /api-user-docs
     packages-to-scan: com.ms.user.controller
+
+eureka:
+    instance:
+        prefer-ip-address: false
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url: 
+            defaultZone: http://localhost:8083/eureka
