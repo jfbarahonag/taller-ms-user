@@ -15,6 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class HandleException {
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleBusinessException(BusinessException ex) {
+                
+        log.error("Business exception:\n{}" + ex.getMessage());
+        
+        return ResponseEntity.badRequest().body("Business exception : " + ex.getMessage());
+    }
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<List<String>> handleUnknownException(Exception ex) {
                 
