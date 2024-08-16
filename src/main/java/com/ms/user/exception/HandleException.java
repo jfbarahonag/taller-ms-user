@@ -15,6 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class HandleException {
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<List<String>> handleUnknownException(Exception ex) {
+                
+        log.error("Unknown exception:\n{}" + ex.getMessage());
+        
+        return ResponseEntity.internalServerError().build();
+    }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<String>> handleValidationException(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult()
