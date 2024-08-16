@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
             UserEntity userEntity = UserEntity
                     .builder()
                     .id(UUID.randomUUID().toString())
-                    .name(userDto.getName())
-                    .document(userDto.getDocument())
-                    .documentType(userDto.getDocumentType())
+                    .name(userDto.name())
+                    .document(userDto.document())
+                    .documentType(userDto.documentType())
                     .build();
 
             UserEntity newUser = userRepository.save(userEntity);
@@ -90,9 +90,9 @@ public class UserServiceImpl implements UserService {
             UserEntity userEntity = UserEntity
                     .builder()
                     .id(id)
-                    .name(userDto.getName())
-                    .document(userDto.getDocument())
-                    .documentType(userDto.getDocumentType())
+                    .name(userDto.name())
+                    .document(userDto.document())
+                    .documentType(userDto.documentType())
                     .build();
 
             userRepository.save(userEntity);
