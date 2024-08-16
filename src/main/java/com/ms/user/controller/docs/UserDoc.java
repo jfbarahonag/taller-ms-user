@@ -27,6 +27,11 @@ public interface UserDoc {
                 content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
             ),
             @ApiResponse(
+                responseCode="400",
+                description="Bad Request",
+                content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
                 responseCode="500",
                 description="Internal Server Error",
                 content=@Content(mediaType=MediaType.APPLICATION_JSON_VALUE)
