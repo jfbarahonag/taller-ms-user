@@ -7,6 +7,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.ms.user.dto.ErrorDto;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,11 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 public class HandleException {
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<Object> handleBusinessException(BusinessException ex) {
+    public ResponseEntity<ErrorDto> handleBusinessException(BusinessException ex) {
                 
-        log.error("Business exception:\n{}" + ex.getMessage());
+        ErrorDto errDto = ErrorDto.builder().message("Business exception : " + ex.getMessage()).build();
         
-        return ResponseEntity.badRequest().body("Business exception : " + ex.getMessage());
+        log.error(errDto.message());
+        
+        return ResponseEntity.badRequest().body(errDto);
     }
     
     @ExceptionHandler(Exception.class)

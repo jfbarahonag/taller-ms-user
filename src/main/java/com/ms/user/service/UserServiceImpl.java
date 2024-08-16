@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ms.user.dto.UserDto;
+import com.ms.user.exception.BusinessException;
 import com.ms.user.model.UserEntity;
 import com.ms.user.repository.UserRepository;
 
@@ -21,25 +22,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<UserEntity> create(UserDto userDto) {
-        try {
 
-            UserEntity userEntity = UserEntity
-                    .builder()
-                    .id(UUID.randomUUID().toString())
-                    .name(userDto.name())
-                    .document(userDto.document())
-                    .documentType(userDto.documentType())
-                    .build();
+        var user = userRepository.findByDocumentAndDocumentType(userDto.document(), userDto.documentType());
 
-            UserEntity newUser = userRepository.save(userEntity);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(newUser);
-        } catch (RuntimeException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .build();
+        if (user.isPresent()) {
+            throw new BusinessException("User has been registered previously");
         }
+        
+        UserEntity userEntity = UserEntity
+                .builder()
+                .id(UUID.randomUUID().toString())
+                .name(userDto.name())
+                .document(userDto.document())
+                .documentType(userDto.documentType())
+                .build();
+
+        UserEntity newUser = userRepository.save(userEntity);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(newUser);
     }
     
     @Override
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
                     .badRequest()
                     .build();
         }
-    }
+}
     
     @Override
     public ResponseEntity<UserEntity> deleteById(String id) {
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
                     .badRequest()
                     .build();
         }
-    }
+}
     
     @Override
     public ResponseEntity<UserEntity> updateById(String id, UserDto userDto) {
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
             if (user.isEmpty()) {
                 return ResponseEntity.notFound().build();
-            }
+}
             
             UserEntity userEntity = UserEntity
                     .builder()
