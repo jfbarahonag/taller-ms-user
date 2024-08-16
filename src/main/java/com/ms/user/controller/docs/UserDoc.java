@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @Tag(name="User controller", description="API exposed for CRUD operations on users")
 public interface UserDoc {
@@ -32,7 +33,7 @@ public interface UserDoc {
             )
         }
     )
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserDto userDto);
+    public ResponseEntity<UserEntity> createUser(@RequestBody @Valid UserDto userDto);
 
     @Operation(summary="Get user by id", description="This operation is for retrieving a user by its id")
     @ApiResponses(
@@ -113,6 +114,6 @@ public interface UserDoc {
             )
         }
     )
-    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, UserDto newUser);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable String id, @Valid UserDto newUser);
 
 }
