@@ -45,65 +45,49 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public ResponseEntity<UserEntity> getById(String id) {
-        try {
-            Optional<UserEntity> user = userRepository.findById(id);
+        
+        Optional<UserEntity> user = userRepository.findById(id);
 
-            if (user.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok(user.get());
-        } catch (RuntimeException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .build();
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-}
+
+        return ResponseEntity.ok(user.get());
+    }
     
     @Override
     public ResponseEntity<UserEntity> deleteById(String id) {
-        try {
-            Optional<UserEntity> user = userRepository.findById(id);
 
-            if (user.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
+        Optional<UserEntity> user = userRepository.findById(id);
 
-            userRepository.delete(user.get());
-
-            return ResponseEntity.ok(user.get());
-        } catch (RuntimeException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .build();
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-}
+
+        userRepository.delete(user.get());
+
+        return ResponseEntity.ok(user.get());
+    }
     
     @Override
     public ResponseEntity<UserEntity> updateById(String id, UserDto userDto) {
-        try {
-            Optional<UserEntity> user = userRepository.findById(id);
+        
+        Optional<UserEntity> user = userRepository.findById(id);
 
-            if (user.isEmpty()) {
-                return ResponseEntity.notFound().build();
-}
-            
-            UserEntity userEntity = UserEntity
-                    .builder()
-                    .id(id)
-                    .name(userDto.name())
-                    .document(userDto.document())
-                    .documentType(userDto.documentType())
-                    .build();
-
-            userRepository.save(userEntity);
-
-            return ResponseEntity.ok(userEntity);
-        } catch (RuntimeException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .build();
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
-    }
+        
+        UserEntity userEntity = UserEntity
+                .builder()
+                .id(id)
+                .name(userDto.name())
+                .document(userDto.document())
+                .documentType(userDto.documentType())
+                .build();
 
+        userRepository.save(userEntity);
+
+        return ResponseEntity.ok(userEntity);
+    }
 }
