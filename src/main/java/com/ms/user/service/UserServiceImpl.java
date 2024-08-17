@@ -1,5 +1,6 @@
 package com.ms.user.service;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -7,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ms.user.dto.EmailDto;
 import com.ms.user.dto.UserDto;
 import com.ms.user.exception.BusinessException;
+import com.ms.user.external.service.NotificationServiceFeign;
 import com.ms.user.model.UserEntity;
 import com.ms.user.repository.UserRepository;
 
@@ -19,6 +22,7 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final NotificationServiceFeign notificationServiceFeign;
 
     @Override
     public ResponseEntity<UserEntity> create(UserDto userDto) {
@@ -38,6 +42,17 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         UserEntity newUser = userRepository.save(userEntity);
+
+        EmailDto email = EmailDto
+            .builder()
+            .subject("This is my email from spring")
+            .body("User created: " + userDto.name())
+            .to(Arrays.asList("jfbarahonag@unal.edu.co"))
+            .bcc(Arrays.asList())
+            .build();
+        
+        notificationServiceFeign.send(email);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(newUser);

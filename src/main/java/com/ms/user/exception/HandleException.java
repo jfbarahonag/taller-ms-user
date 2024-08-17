@@ -30,7 +30,7 @@ public class HandleException {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<List<String>> handleUnknownException(Exception ex) {
                 
-        log.error("Unknown exception:\n{}" + ex.getMessage());
+        log.error("Unknown exception:\n{}", ex.getMessage());
         
         return ResponseEntity.internalServerError().build();
     }
@@ -43,7 +43,7 @@ public class HandleException {
                 .map(err -> err.getObjectName() + " : " + err.getField() + " : " + err.getDefaultMessage())
                 .toList();
         
-        log.error("Validation error(s):\n{}" + errors);
+        log.error("Validation error(s):\n{}", errors);
         
         return ResponseEntity.badRequest().body(errors);
     }
